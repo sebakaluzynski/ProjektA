@@ -53,7 +53,7 @@ bool ListUsers::DeleteUser(string l)
 }
 
 
-void ListUsers::wyswietl()
+void ListUsers::showUsers()
 {
 	User* finder = first;
 	while ((finder != NULL))

@@ -40,7 +40,7 @@ bool Interface::wyswietlSensory()
 {
 	if (jestzalogowany())
 	{
-		listaSensorow.wyswietl();
+		listaSensorow.showSensors();
 		return 1;
 	}
 	else
@@ -53,7 +53,7 @@ bool Interface::wyswietlUsers()
 {
 	if (mauprawnienia())
 	{
-		listaUserow.wyswietl();
+		listaUserow.showUsers();
 		return 1;
 	}
 	else
@@ -88,14 +88,33 @@ bool Interface::dodajSensor(string n)
 		return 0;
 	}
 }
+bool Interface::logout()
+{
+	if (jestzalogowany())
+	{
+		cout << "Wylogowano";
+		return 1;
+	} 
+	else
+	{
+		cout << "Nie jestes zalogowany";
+		return 0;
+	}
+}
+
+
 
 void Interface::help()
 {
 	cout << "Lista komend:" << endl;
-	cout<< "login [login] [haslo] - loguje do systemu" << endl;
-	cout << "Dodaj czujnik [name]" << endl;
-	cout << "Dodaj uzytkownika [l][p][a]" << endl;
-	cout << "logout " << endl;
+	cout << "login [login] [haslo] - loguje do systemu" << endl;
+	cout << "adduser [login][password][access]" << endl;
+	cout << "addsensor [name] - dodaje sensory" << endl;
+	cout << "deleteuser [name]" << endl;
+	cout << "deletesensor [name]" << endl;
+	cout << "showsensors - pokazuje wszystkie sensory" << endl;
+	cout << "showusers - pokazuje wszystkich uzytkownikow" << endl;
+	cout << "logout - wylogowuje" << endl;
 
 }
 
@@ -109,19 +128,25 @@ void Interface::loop()
 	{
 		cout << endl;
 		ok = 0;
-		cin >> komenda;
+		cout << "Wpisz komende: ";  cin >> komenda;
 
-		if (komenda == "exit")
+		if (komenda == "logout")
 		{
 			ok = 1;
 			check = 0;
+			logout();
 		}
-		if (komenda == "adds")
+		if (komenda == "addsensor")
 		{
 			ok = 1;
-			cin >> p1;
-			dodajSensor(p1);
-
+			if (jestzalogowany()) {
+				cout << "Podaj nazwe czujnika: "; cin >> p1;
+				dodajSensor(p1);
+			}
+			else
+			{
+				cout << "Musisz sie zalogowac";
+			}
 		}
 		if (komenda == "login")
 		{
@@ -129,11 +154,8 @@ void Interface::loop()
 			cout << "Podaj login: "; cin >> p1;
 			cout << "Podaj haslo: "; cin >> p2;
 			if (zaloguj(p1, p2)) cout << "Zalogowano" << endl;
-			else cout << "Nieprawid³owy login lub has³o" << endl;
-
-
+			else cout << "Nieprawidlowy login lub haslo" << endl;
 		}
-
 
 		if (ok == 0) cout << "Niepoprawna Komenda";
 	}

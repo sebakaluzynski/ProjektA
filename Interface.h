@@ -27,5 +27,6 @@ public:
 	bool dodajUser(string, string, int);
 	void help();
 	void loop();
+	bool logout();
 
 };

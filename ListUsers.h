@@ -17,5 +17,5 @@ public:
 	User* findUser(string);
 	bool AddUser(string,string,int);
 	bool DeleteUser(string);
-	void wyswietl();
+	void showUsers();
 };

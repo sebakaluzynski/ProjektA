@@ -16,5 +16,5 @@ public:
 	Sensor* findSensor(string);
 	bool AddSensor(string);
 	bool DeleteSensor(string);
-	void wyswietl();
+	void showSensors();
 };

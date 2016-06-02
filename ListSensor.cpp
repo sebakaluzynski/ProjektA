@@ -52,7 +52,7 @@ bool ListSensor::DeleteSensor(string n)
 		return 0;
 	}
 }
-void ListSensor::wyswietl()
+void ListSensor::showSensors()
 {
 	Sensor* finder = first;
 	while ((finder != NULL))
