@@ -126,9 +126,10 @@ void Interface::loop()
 		if (komenda == "login")
 		{
 			ok = 1;
-			cin >> p1 >> p2;
+			cout << "Podaj login: "; cin >> p1;
+			cout << "Podaj haslo: "; cin >> p2;
 			if (zaloguj(p1, p2)) cout << "Zalogowano" << endl;
-			else cout << "Nieprawid這wy login lub has這 frajerze" << endl;
+			else cout << "Nieprawid這wy login lub has這" << endl;
 
 
 		}
