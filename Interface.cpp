@@ -93,12 +93,14 @@ bool Interface::logout()
 	if (jestzalogowany())
 	{
 		cout << "Wylogowano";
+		check = 0;
 		return 1;
 	} 
 	else
 	{
+		system("cls");
 		cout << "Nie jestes zalogowany";
-		return 0;
+		loop();
 	}
 }
 
@@ -120,6 +122,7 @@ void Interface::help()
 
 void Interface::loop()
 {
+	check = 1;
 	string p1, p2, p3;
 	help();
 	string komenda;
@@ -133,20 +136,13 @@ void Interface::loop()
 		if (komenda == "logout")
 		{
 			ok = 1;
-			check = 0;
 			logout();
 		}
 		if (komenda == "addsensor")
 		{
 			ok = 1;
-			if (jestzalogowany()) {
-				cout << "Podaj nazwe czujnika: "; cin >> p1;
-				dodajSensor(p1);
-			}
-			else
-			{
-				cout << "Musisz sie zalogowac";
-			}
+			cout << "Podaj nazwe czujnika: "; cin >> p1;
+			dodajSensor(p1);
 		}
 		if (komenda == "login")
 		{
@@ -156,6 +152,12 @@ void Interface::loop()
 			if (zaloguj(p1, p2)) cout << "Zalogowano" << endl;
 			else cout << "Nieprawidlowy login lub haslo" << endl;
 		}
+		if (komenda == "showsensors")
+		{
+			ok = 1;
+			wyswietlSensory();
+		}
+
 
 		if (ok == 0) cout << "Niepoprawna Komenda";
 	}

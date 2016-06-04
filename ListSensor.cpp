@@ -54,10 +54,13 @@ bool ListSensor::DeleteSensor(string n)
 }
 void ListSensor::showSensors()
 {
-	Sensor* finder = first;
+	Sensor* finder = first;	
+	if (finder == NULL) cout << "Nie ma zainstalowanych czujników" << endl;
+	else cout << endl << "LISTA CZUJNIKOW" << endl;
 	while ((finder != NULL))
-	{
+	{	
 		cout << finder->name << endl;
 		finder = finder->next;
 	}
+
 }
