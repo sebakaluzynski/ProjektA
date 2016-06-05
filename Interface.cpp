@@ -67,6 +67,8 @@ bool Interface::dodajUser(string l, string p, int a )
 	if (mauprawnienia())
 	{
 		listaUserow.AddUser(l, p, a);
+		cout << "DODANO UZYTOWNIKA" << endl;
+
 		return 1;
 	}
 	else
@@ -80,6 +82,7 @@ bool Interface::dodajSensor(string n)
 	if (mauprawnienia())
 	{
 		listaSensorow.AddSensor(n);
+		cout << "DODANO CZUJNIK" << endl;
 		return 1;
 	}
 	else
@@ -88,18 +91,48 @@ bool Interface::dodajSensor(string n)
 		return 0;
 	}
 }
+bool Interface::deleteUser(string n)
+{
+	if (mauprawnienia())
+	{
+		listaUserow.DeleteUser(n);
+		cout << "USUNIETO UZYTKOWNIKA" << endl;
+		return 1;
+	}
+	else
+	{
+		cout << "Nie masz uprawnien";
+		return 0;
+	}
+}
+bool Interface::deleteSensor(string n)
+{
+	if (mauprawnienia())
+	{
+		listaSensorow.DeleteSensor(n);
+		cout << "USUNIETO CZUJNIK" << endl;
+
+		return 1;
+	}
+	else
+	{
+		cout << "Nie masz uprawnien";
+		return 0;
+	}
+}
+
 bool Interface::logout()
 {
 	if (jestzalogowany())
 	{
 		cout << "Wylogowano";
-		check = 0;
+		check = 1;
 		return 1;
 	} 
 	else
 	{
 		system("cls");
-		cout << "Nie jestes zalogowany";
+		cout << "NIE JESTES ZALOGOWANY" << endl << endl;
 		loop();
 	}
 }
@@ -112,18 +145,18 @@ void Interface::help()
 	cout << "login [login] [haslo] - loguje do systemu" << endl;
 	cout << "adduser [login][password][access]" << endl;
 	cout << "addsensor [name] - dodaje sensory" << endl;
-	cout << "deleteuser [name]" << endl;
-	cout << "deletesensor [name]" << endl;
+	cout << "deleteuser [name] - usuwa uzytkownikow" << endl;
+	cout << "deletesensor [name] - usuwa sensory" << endl;
 	cout << "showsensors - pokazuje wszystkie sensory" << endl;
 	cout << "showusers - pokazuje wszystkich uzytkownikow" << endl;
 	cout << "logout - wylogowuje" << endl;
-
 }
 
 void Interface::loop()
 {
 	check = 1;
-	string p1, p2, p3;
+	string p1, p2;
+	int access;
 	help();
 	string komenda;
 	bool ok;
@@ -144,6 +177,14 @@ void Interface::loop()
 			cout << "Podaj nazwe czujnika: "; cin >> p1;
 			dodajSensor(p1);
 		}
+		if (komenda == "adduser")
+		{
+			ok = 1;
+			cout << "Podaj login nowego uzytkownika: "; cin >> p1;
+			cout << "Podaj haslo nowego uzytkownika: "; cin >> p2;
+			cout << "Podaj uprawnienia [brak - 0 admin - 1 ]: "; cin >> access;
+			dodajUser(p1, p2, access);
+		}
 		if (komenda == "login")
 		{
 			ok = 1;
@@ -157,9 +198,24 @@ void Interface::loop()
 			ok = 1;
 			wyswietlSensory();
 		}
-
+		if (komenda == "showusers")
+		{
+			ok = 1;
+			wyswietlUsers();
+		}
+		if (komenda == "deletesensor")
+		{
+			ok = 1;
+			cout << "Podaj nazwe czujnika ktory chcesz usunac: "; cin >> p1;
+			deleteSensor(p1);
+		}
+		if (komenda == "deleteuser")
+		{
+			ok = 1;
+			cout << "Podaj nazwe uzytkownika ktorego chcesz usunac: "; cin >> p1;
+			deleteUser(p1);
+		}
 
 		if (ok == 0) cout << "Niepoprawna Komenda";
 	}
-
 }

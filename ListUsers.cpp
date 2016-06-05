@@ -56,9 +56,12 @@ bool ListUsers::DeleteUser(string l)
 void ListUsers::showUsers()
 {
 	User* finder = first;
+	cout << endl << "LISTA UZYTKOWNIKÓW" << endl;
 	while ((finder != NULL))
 	{
+		cout << endl;
 		cout << finder->login<<endl;
 		finder = finder->next;
 	}
+
 }

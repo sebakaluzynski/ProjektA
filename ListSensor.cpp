@@ -62,5 +62,4 @@ void ListSensor::showSensors()
 		cout << finder->name << endl;
 		finder = finder->next;
 	}
-
 }

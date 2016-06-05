@@ -25,6 +25,8 @@ public:
 	bool wyswietlUsers();
 	bool dodajSensor(string);
 	bool dodajUser(string, string, int);
+	bool deleteUser(string);
+	bool deleteSensor(string);
 	void help();
 	void loop();
 	bool logout();
