@@ -13,7 +13,5 @@ void main()
 	Interface interfejs;
 	interfejs.loop();
 	
-
-
 	_getch();
 }

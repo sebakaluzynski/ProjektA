@@ -1,10 +1,19 @@
 #include "Interface.h"
 
-Interface::Interface() {
+Interface::Interface(){
 	uzytkownik = NULL;
 	listaSensorow = ListSensor();
 	listaUserow = ListUsers();
-	listaUserow.AddUser("seba", "jakari", 1);
+	sensor = Sensor();
+	srand(time(NULL));
+	//inicjalizacja uzytkowników	0 - brak uprawnien	1 - ma uprawnienia
+	listaUserow.AddUser("admin", "admin", 1);
+	listaUserow.AddUser("kot", "alik", 0);
+	//inicjalizacja sensorów
+	listaSensorow.AddSensor("sensor1");
+	listaSensorow.AddSensor("sensor2");
+	listaSensorow.AddSensor("sensor3");
+
 	check = 1;
 }
 
@@ -137,18 +146,20 @@ bool Interface::logout()
 	}
 }
 
-
-
 void Interface::help()
 {
 	cout << "Lista komend:" << endl;
-	cout << "login [login] [haslo] - loguje do systemu" << endl;
-	cout << "adduser [login][password][access]" << endl;
-	cout << "addsensor [name] - dodaje sensory" << endl;
-	cout << "deleteuser [name] - usuwa uzytkownikow" << endl;
-	cout << "deletesensor [name] - usuwa sensory" << endl;
+	cout << "-------------------------------" << endl;
+	cout << "login - loguje do systemu" << endl;
+	cout << "adduser - dodaje uzytkownika" << endl;
+	cout << "addsensor - dodaje sensory" << endl;
+	cout << "deleteuser - usuwa uzytkownikow" << endl;
+	cout << "deletesensor - usuwa sensory" << endl;
 	cout << "showsensors - pokazuje wszystkie sensory" << endl;
 	cout << "showusers - pokazuje wszystkich uzytkownikow" << endl;
+	cout << "checktemp - sprawdza temperature na wybranym czujniku" << endl;
+	cout << "clear - czysci konsole" << endl;
+	cout << "exit - zamyka konsole" << endl;
 	cout << "logout - wylogowuje" << endl;
 }
 
@@ -214,6 +225,29 @@ void Interface::loop()
 			ok = 1;
 			cout << "Podaj nazwe uzytkownika ktorego chcesz usunac: "; cin >> p1;
 			deleteUser(p1);
+		}
+		if (komenda == "checktemp")
+		{
+			ok = 1;
+			cout << "Podaj nazwe sensora, z ktorego chcesz odczytac temperature: "; cin >> p1;
+			if(listaSensorow.findSensor(p1))
+			{
+				cout << "Temperatura wynosi: ";
+				sensor.getValue();
+			}
+			else 
+				cout << "Nie ma takiego czujnika";
+			
+		}
+		if (komenda == "clear")
+		{
+			ok = 1;
+			system("cls");
+			help();
+		}
+		if (komenda == "exit")
+		{
+			exit(0);
 		}
 
 		if (ok == 0) cout << "Niepoprawna Komenda";

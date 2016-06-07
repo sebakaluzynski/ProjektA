@@ -2,6 +2,7 @@
 #include <iostream>
 #include <conio.h>
 #include <string>
+#include <ctime>
 #include "ListUsers.h"
 #include "Sensor.h"
 #include "User.h"
@@ -13,6 +14,7 @@ class Interface
 {
 	ListSensor listaSensorow;
 	ListUsers listaUserow;
+	Sensor sensor;
 	User* uzytkownik;
 public:
 	bool check;

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <conio.h>
 #include <string>
+#include <ctime>
 
 using namespace std;
 
@@ -13,7 +14,9 @@ public:
 	Sensor* next;
 	string name;
 	Sensor(string, Sensor*);
-	float getValue();
+	Sensor();
+	int temperature;
+	void getValue();
 	bool checkName(string);
 
 };
