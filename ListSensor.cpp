@@ -40,10 +40,14 @@ Sensor* ListSensor::findSensor(string n)
 bool ListSensor::DeleteSensor(string n)
 {
 	Sensor* victim = findSensor(n);
+
 	if (victim != NULL)
 	{
 		if (victim->next != NULL) victim->next->previous = victim->previous;
+		else last = victim->previous;
+
 		if (victim->previous != NULL) victim->previous->next = victim->next;
+		else first = victim->next;
 		delete victim;
 		return 1;
 	}

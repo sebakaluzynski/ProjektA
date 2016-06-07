@@ -42,7 +42,11 @@ bool ListUsers::DeleteUser(string l)
 	if (victim != NULL)
 	{
 		if (victim->next != NULL) victim->next->previous = victim->previous;
+		else last = victim->previous;
+
 		if (victim->previous != NULL) victim->previous->next = victim->next;
+		else first = victim->next;
+
 		delete victim;
 		return 1;
 	}
